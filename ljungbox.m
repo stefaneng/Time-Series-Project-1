@@ -1,4 +1,4 @@
-function lambda = ljungbox(data, h)
+function [lambda, acf] = ljungbox(data, h)
     % Assumes that data is mean centered
     gamma = 1:h+1;
     n = length(data);

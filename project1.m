@@ -26,5 +26,26 @@ title("Log Returns");
 plot(corrected_log_returns);
 
 % Problem 2
-ljungbox(corrected_data,20);
+crit_val = chi2inv(0.95, 20);
+[lambda_data, acf_data] = ljungbox(corrected_data, 20);
+[lambda_abs, acf_abs] = ljungbox(corrected_abs_returns, 20);
+[lambda_log, acf_log] = ljungbox(corrected_log_returns, 20);
+
+% Hypothesis test
+lambda_data > crit_val
+lambda_abs > crit_val
+lambda_log > crit_val
+
+% TODO: Plot on same scale
+% IID should be 0 covariance
+figure;
+subplot(2,2,1);
+plot(acf_data);
+subplot(2,2,2);
+plot(acf_abs);
+subplot(2,2,3);
+plot(acf_log);
+
+
+
 
