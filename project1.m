@@ -32,9 +32,13 @@ crit_val = chi2inv(0.95, 20);
 [lambda_log, acf_log] = ljungbox(corrected_log_returns, 20);
 
 % Hypothesis test
-lambda_data > crit_val;
-lambda_abs > crit_val;
-lambda_log > crit_val;
+% TODO: Pvalues
+% chi2cdf(lambda_log, 20, 'upper')
+% Reject the null for the data
+% Fail to reject for abs and log
+chi2cdf(lambda_data, 20, 'upper');
+chi2cdf(lambda_abs, 20, 'upper');
+chi2cdf(lambda_log, 20, 'upper');
 
 % IID should be 0 covariance
 figure;
@@ -73,17 +77,30 @@ coefs = train_gamma_mat \ flip(gm(2:end)');
 preds = zeros(n_returns, 1);
 preds(1:102) = training;
 for i = 103:n_returns
-    preds(i) = dot(preds(i-20:i-1), coefs);
+    preds(i) = dot(preds(i-1:-1:i-20), coefs);
 end
 
+% Plot the predictions (red) and the actual values (black)
 figure;
+preds_plot = plot(preds(103:n_returns), '-o');
+preds_plot.Color = "red";
+hold on;
+actual_plot = plot(test, '-o');
+actual_plot.Color = "black";
+title("Predictions (red) and actual values (black)");
 
-% TODO: Plot the predictions and the actual values.
-scatter(103:n_returns, preds(103:n_returns), 'black');
-scatter(103:n_returns, test, [], 'red');
+% Plot the residuals
+figure;
+stem(preds(103:n_returns) - test, 'filled');
+title("Predicted - Actual (Residuals)");
 
 % mean squared error
-mean(preds(103:n_returns) - test)
+forecast_mse = mean((preds(103:n_returns) - test).^2);
+mean_mse = mean(test.^2);
+
+% Not much difference in the forecasted MSE and the naive mean prediction
+% Since log returns look IID it makes sense that mean prediction is almost
+% as good
 
 % Problem 4
 % qqplot(corrected_log_returns);
