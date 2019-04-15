@@ -3,6 +3,7 @@
 
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{float}
 
 \title{Time Series Project 1}
 \author{Stefan Eng and Franz Hartleitner}
@@ -17,7 +18,7 @@
 
 \section*{Problem 1}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \includegraphics[width=10cm]{plots/exchangedata.png}
 \centering
 \caption{Monthly observations of the Australian Trade Weighted Index}
@@ -29,14 +30,14 @@ From this graph it does not appear to be a stationary process.
 For an lag set to say $h = 10$, if we look at the relation between $t = 25$ and $t = 75$, we see that the covariance is positive between $X_{25}$ and $X_{35}$ and fairly strongly negatively correlated between $X_{75}$ and $X_{85}$.
 This shows informally that we are probably not dealing with a stationary time series as we would expect the covariance of $\gamma_{X}(t + h, t)$ not to depend on $t$.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \includegraphics[width=10cm]{plots/abs_returns.png}
 \centering
 \caption{Absolute returns $Y_t = X_{t + 1} - X_{t}$}
 \label{fig:absreturns}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \includegraphics[width=10cm]{plots/log_returns.png}
 \centering
 \caption{Log returns $Z_t = \log(X_{t + 1}) - \log(X_{t})$}
@@ -65,28 +66,37 @@ For the absolute returns, we found that $\lambda_2 = 29.09$. That corresponds wi
 
 The log returns have a test statistic $\lambda_3 = 23.19$ which has a p-value of 0.279. Here we fail to reject the null hypothesis as well which is consistent with the log returns being iid.
 
-\begin{figure}[h!]
+The ACF are plotted in Figures \ref{fig:acf_exchange}, \ref{fig:acf_abs}, and \ref{fig:acf_log}.
+The dashed lines represent $\pm 1.96 / \sqrt{n}$.
+If the data was an iid sequence we would expect 95\% (approximately 10 point) of the sample to fall within these bounds \cite{bd}.
+We see that almost all the points are within these bounds.
+This is consistent with out findings in the Ljung-Box test.
+We can see a steady decrease in the ACF for the exchange data which indicates that we could probably predict these values better than the absolute returns and log returns.
+
+\begin{figure}[H]
 \includegraphics[width=10cm]{plots/acf_exchange.png}
 \centering
 \caption{ACF for Exchange Data $h = 0,\ldots, 20$}
-\label{fig:absreturns}
+\label{fig:acf_exchange}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \includegraphics[width=10cm]{plots/acf_abs_returns.png}
 \centering
 \caption{ACF for Absolute Returns $h = 0,\ldots, 20$}
-\label{fig:logreturns}
+\label{fig:acf_abs}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \includegraphics[width=10cm]{plots/acf_log_returns.png}
 \centering
 \caption{ACF for Log Returns $h = 0,\ldots, 20$}
-\label{fig:logreturns}
+\label{fig:acf_log}
 \end{figure}
 
 \section*{Problem 3}
+We split the log returns into a training (first 102 observations) and the test set ($t = 103,\ldots, 204$).
+Next we computed the autocovariance function for 
 
 \section*{Problem 5}
 \subsection*{Part a}
