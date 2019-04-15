@@ -2,6 +2,11 @@ data = importdata('exchangerate.mat');
 n_data = length(data);
 
 % Problem 1
+% mean correct all three series, i.e., subtract the sample mean from each series.
+% Plot them. Which, if any, of them do you think can be modeled as a stationary time
+% series? Motivate your answer. After this, you may assume that all three time series
+% have mean zero.
+
 x_t = data(1:end - 1);
 x_t_1 = data(2:end);
 
@@ -15,15 +20,26 @@ corrected_log_returns = log_returns - mean(log_returns);
 corrected_data = data - mean(data);
 
 figure;
-subplot(2,2,1);
+% subplot(2,2,1);
 plot(corrected_data);
+ylabel("Exchange Rate");
+xlabel("Months after Jan 1978");
 title("Exchange data");
-subplot(2,2,2);
+saveas(gcf,'plots/exchangedata.png');
+figure;
+% subplot(2,2,2);
 plot(corrected_abs_returns);
+xlabel("Months after Jan 1978");
+ylabel("Absolute returns");
 title("Absolute returns");
-subplot(2,2,3);
+saveas(gcf,'plots/abs_returns.png');
+figure;
+% subplot(2,2,3);
 plot(corrected_log_returns);
+xlabel("Months after Jan 1978");
+ylabel("Log returns");
 title("Log Returns");
+saveas(gcf,'plots/log_returns.png');
 
 % Problem 2
 crit_val = chi2inv(0.95, 20);
@@ -104,15 +120,16 @@ mean_mse = mean(test.^2);
 
 % Problem 4
 % qqplot(corrected_log_returns);
+% Standardized log return (divided off standard deviation)
+log_returns_std = sort(corrected_log_returns / std(corrected_log_returns));
+% Generate samples from normal distribution
+norm_sample = sort(normrnd(0, 1, [1,n_returns]));
+
+% Plot QQ-plot
 figure;
-x = corrected_log_returns / std(corrected_log_returns);
-cdfplot(x)
+scatter(norm_sample, log_returns_std);
 hold on;
-x_values = linspace(min(x),max(x));
-plot(x_values,normcdf(x_values,0,1),'r-')
-legend('Empirical CDF','Standard Normal CDF','Location','best')
-
-% Histogram fit of normal
-histfit(x)
-
-
+refline(1,0);
+title("QQ plot");
+ylabel("Standardize Log Returns Quantiles");
+xlabel("Normal Quantiles");
