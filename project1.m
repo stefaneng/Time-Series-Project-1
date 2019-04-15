@@ -22,9 +22,9 @@ corrected_data = data - mean(data);
 figure;
 % subplot(2,2,1);
 plot(corrected_data);
-ylabel("Exchange Rate");
+ylabel("Australian Trade Weighted Index");
 xlabel("Months after Jan 1978");
-title("Exchange data");
+title("Monthly observations of the Australian Trade Weighted Index");
 saveas(gcf,'plots/exchangedata.png');
 figure;
 % subplot(2,2,2);
@@ -58,29 +58,40 @@ chi2cdf(lambda_log, 20, 'upper');
 
 % IID should be 0 covariance
 figure;
-subplot(2,2,1);
+%subplot(2,2,1);
 stem(acf_data, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
-yline(1.96 / sqrt(n_data), '--', '1.96/sqrt(n)');
-yline(-1.96 / sqrt(n_data), '--', '-1.96/sqrt(n)');
+yline(1.96 / sqrt(n_data), '--');
+yline(-1.96 / sqrt(n_data), '--');
 title("ACF for original data");
+ylabel("Correlation");
+xlabel("h");
 axis([1 20 -1 1]);
+saveas(gcf,'plots/acf_exchange.png');
 
-subplot(2,2,2);
+figure;
+%subplot(2,2,2);
 stem(acf_abs, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
-yline(1.96 / sqrt(n_returns), '--', '1.96/sqrt(n)');
-yline(-1.96 / sqrt(n_returns), '--', '-1.96/sqrt(n)');
+yline(1.96 / sqrt(n_returns), '--');
+yline(-1.96 / sqrt(n_returns), '--');
 title("ACF for absolute returns");
+ylabel("Correlation");
+xlabel("h");
 axis([1 20 -1 1]);
+saveas(gcf,'plots/acf_abs_returns.png');
 
-subplot(2,2,3);
+%subplot(2,2,3);
+figure;
 stem(acf_log, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
-yline(1.96 / sqrt(n_returns), '--', '1.96/sqrt(n)');
-yline(-1.96 / sqrt(n_returns), '--', '-1.96/sqrt(n)');
+yline(1.96 / sqrt(n_returns), '--');
+yline(-1.96 / sqrt(n_returns), '--');
 title("ACF for log returns");
+ylabel("Correlation");
+xlabel("h");
 axis([1 20 -1 1]);
+saveas(gcf,'plots/acf_log_returns.png');
 
 % Problem 3
 training = corrected_log_returns(1:102);
@@ -98,17 +109,19 @@ end
 
 % Plot the predictions (red) and the actual values (black)
 figure;
-preds_plot = plot(preds(103:n_returns), '-o');
+preds_plot = plot(103:n_returns, preds(103:n_returns), '-o');
 preds_plot.Color = "red";
 hold on;
-actual_plot = plot(test, '-o');
+actual_plot = plot(103:n_returns, test, '-o');
 actual_plot.Color = "black";
-title("Predictions (red) and actual values (black)");
+title("Log Returns Predictions (red) and actual values (black)");
+ylabel("Log Returns");
+saveas(gcf,'plots/log_returns_preds.png');
 
 % Plot the residuals
-figure;
-stem(preds(103:n_returns) - test, 'filled');
-title("Predicted - Actual (Residuals)");
+% figure;
+% stem(103:n_returns, preds(103:n_returns) - test, 'filled');
+% title("Predicted - Actual (Residuals)");
 
 % mean squared error
 forecast_mse = mean((preds(103:n_returns) - test).^2);
