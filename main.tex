@@ -61,9 +61,32 @@ $$
 
 For the standardized exchange rate data we found that $\lambda_1 = 3005$ which has a $p$-value of essentially 0. We can reject the null hypothesis and concluded that the exchange rate data is not iid.
 
-For the absolute returns, we found that $\lambda_2 = 29.09$. That corresponds with a p-value of $0.086 > 0.05$. Here we fail to reject the null hypothesis (but we are fairly close to .05. There is some evidence to support the claim that the absolute returns come are iid.
+For the absolute returns, we found that $\lambda_2 = 29.09$. That corresponds with a p-value of $0.086 > 0.05$. Here we fail to reject the null hypothesis (but we are fairly close to .05). There is some evidence to support the claim that the absolute returns are iid.
 
 The log returns have a test statistic $\lambda_3 = 23.19$ which has a p-value of 0.279. Here we fail to reject the null hypothesis as well which is consistent with the log returns being iid.
+
+\begin{figure}[h!]
+\includegraphics[width=10cm]{plots/acf_exchange.png}
+\centering
+\caption{ACF for Exchange Data $h = 0,\ldots, 20$}
+\label{fig:absreturns}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=10cm]{plots/acf_abs_returns.png}
+\centering
+\caption{ACF for Absolute Returns $h = 0,\ldots, 20$}
+\label{fig:logreturns}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=10cm]{plots/acf_log_returns.png}
+\centering
+\caption{ACF for Log Returns $h = 0,\ldots, 20$}
+\label{fig:logreturns}
+\end{figure}
+
+\section*{Problem 3}
 
 \section*{Problem 5}
 \subsection*{Part a}
