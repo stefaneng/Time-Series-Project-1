@@ -104,8 +104,16 @@ coefs = train_gamma_mat \ flip(gm(2:end)');
 preds = zeros(n_returns, 1);
 preds(1:102) = training;
 for i = 103:n_returns
-    preds(i) = dot(preds(i-1:-1:i-20), coefs);
+    preds(i) = preds(i-1:-1:i-20)' * coefs;    
 end
+
+% Print out the coefficients nicely for latex
+coef_format = arrayfun(@(x) sprintf("%.3f", x), coefs);
+zs_format = arrayfun(@(x) sprintf("z_{n-%d}",x), 1:20);
+% {' + '}, 
+blp_format = strcat(coef_format', zs_format);
+% add plus between coefficients
+blp_format = strjoin(blp_format, ' + ');
 
 % Plot the predictions (red) and the actual values (black)
 figure;
@@ -114,8 +122,9 @@ preds_plot.Color = "red";
 hold on;
 actual_plot = plot(103:n_returns, test, '-o');
 actual_plot.Color = "black";
-title("Log Returns Predictions (red) and actual values (black)");
+title("Log Returns Predictions and actual values");
 ylabel("Log Returns");
+legend("Predictions", "Actual");
 saveas(gcf,'plots/log_returns_preds.png');
 
 % Plot the residuals

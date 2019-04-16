@@ -96,7 +96,58 @@ We can see a steady decrease in the ACF for the exchange data which indicates th
 
 \section*{Problem 3}
 We split the log returns into a training (first 102 observations) and the test set ($t = 103,\ldots, 204$).
-Next we computed the autocovariance function for 
+Next we computed the autocovariance function $\hat{\gamma}$ using only the data from the training data set for each $h = 1,\ldots,20$.
+$$
+\hat{\gamma}(h) = \frac{1}{n} \sum_{t = 1}^{n - h}(X_{t + h} - \overline{X}) (X_t - \overline{X}) = \sum_{t = 1}^{n - h} X_{t + h} X_t
+$$
+
+We use these values in the sample covariance matrix
+$$
+\hat{\Gamma}_{20} = \begin{bmatrix}
+    \hat{\gamma}(0)      & \hat{\gamma}(1) & \hat{\gamma}(2) & \dots & \hat{\gamma}(19) \\
+    \hat{\gamma}(1)       & \hat{\gamma}(0) & \hat{\gamma}(0) & \dots & \hat{\gamma}(18) \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    \hat{\gamma}(19)       & \hat{\gamma}(18) & \hat{\gamma}(17) & \dots & \hat{\gamma}(0)
+\end{bmatrix}
+$$
+and solve for the coefficients, $a_1,\ldots, a_n$
+$$
+\hat{\Gamma}_{20} (a_1,\ldots, a_n)^T = (\hat{\gamma}(20), \hat{\gamma}(19),\ldots, \hat{\gamma}(1))^T
+$$
+Which results in the linear forecasts
+\begin{align*}
+b_n^l(z_{n-1}, \ldots, z_{n - 20}) &= a_1 z_{n - 1} + a_2 z_{n - 2} + \ldots + a_{20} z_{n - 20}\\
+&= -0.098z_{n-1} + -0.018z_{n-2} + -0.179z_{n-3} + 0.101z_{n-4} + \\
+&\qquad 0.015z_{n-5} + 0.088z_{n-6} + 0.115z_{n-7} + -0.097z_{n-8} +\\
+&\qquad -0.036z_{n-9} + 0.061z_{n-10} + 0.013z_{n-11} + 0.096z_{n-12} +\\
+&\qquad 0.098z_{n-13} + -0.048z_{n-14} + 0.051z_{n-15} + -0.035z_{n-16} +\\
+&\qquad 0.005z_{n-17} + -0.158z_{n-18} + 0.062z_{n-19} + 0.192z_{n-20}
+\end{align*}
+
+In Figure \ref{fig:log_preds} we show the predictions in red and the actual values in black.
+We can see as we go later in time the predictions tend towards the mean value of 0.
+
+\begin{figure}[H]
+\includegraphics[width=10cm]{plots/log_returns_preds.png}
+\centering
+\caption{Linear predictions for $n = 103,\ldots, 204$}
+\label{fig:log_preds}
+\end{figure}
+
+We computed the mean squared error
+$$
+\frac{1}{102} \sum_{n = 103}^{204} (b_n^l(z_{n-1}, \ldots, z_{n - 20}) - z_n)^2
+&= 0.00088
+$$
+where the prediction of just using the mean is
+$$
+\frac{1}{102} \sum_{103}^{204} z_n^2 = 0.00089
+$$
+We can see the the linear forecast MSE is almost exactly the same as the mean prediction.
+We showed in problem 2 that the log returns looked iid.
+This means that we have no correlation (besides noise) between the points in time.
+We do not have any signal to predict from which results in the the linear forecasts being almost the same as the mean prediction.
+We can see this behavior in Figure \ref{fig:log_preds} by noticiing that the predictions tend toward 0 as we go towards the end of the predictions.
 
 \section*{Problem 5}
 \subsection*{Part a}
