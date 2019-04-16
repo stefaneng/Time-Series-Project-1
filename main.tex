@@ -136,8 +136,7 @@ We can see as we go later in time the predictions tend towards the mean value of
 
 We computed the mean squared error
 $$
-\frac{1}{102} \sum_{n = 103}^{204} (b_n^l(z_{n-1}, \ldots, z_{n - 20}) - z_n)^2
-&= 0.00088
+\frac{1}{102} \sum_{n = 103}^{204} (b_n^l(z_{n-1}, \ldots, z_{n - 20}) - z_n)^2 = 0.00088
 $$
 where the prediction of just using the mean is
 $$
@@ -148,6 +147,26 @@ We showed in problem 2 that the log returns looked iid.
 This means that we have no correlation (besides noise) between the points in time.
 We do not have any signal to predict from which results in the the linear forecasts being almost the same as the mean prediction.
 We can see this behavior in Figure \ref{fig:log_preds} by noticiing that the predictions tend toward 0 as we go towards the end of the predictions.
+
+\section*{Problem 4}
+We created a QQ-plot, Figure \ref{fig:qqplot} for the log returns to check if the data was consistent with a normal distribution.
+We sampled points from the standard normal distribution and compared against the order statistics for the normalized log returns.
+We can see that the distribution of log returns does not look normal.
+
+\begin{figure}[H]
+\includegraphics[width=10cm]{plots/qqplot.png}
+\centering
+\caption{QQ-plot for log returns}
+\label{fig:qqplot}
+\end{figure}
+
+We then tested the series
+$$
+|Z_t| = |\log(X_{t + 1}) - \log(X_t)|
+$$
+using the Ljung-box test.
+We found the critical value $\lambda_4 = 76.28 > 31.41$ so we can reject the null hypothesis that the absolute value of the returns are iid.
+The p-value is $1.66 \times 10^{-8}$.
 
 \section*{Problem 5}
 \subsection*{Part a}

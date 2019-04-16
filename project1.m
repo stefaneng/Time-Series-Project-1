@@ -48,10 +48,6 @@ crit_val = chi2inv(0.95, 20);
 [lambda_log, acf_log] = ljungbox(corrected_log_returns, 20);
 
 % Hypothesis test
-% TODO: Pvalues
-% chi2cdf(lambda_log, 20, 'upper')
-% Reject the null for the data
-% Fail to reject for abs and log
 chi2cdf(lambda_data, 20, 'upper');
 chi2cdf(lambda_abs, 20, 'upper');
 chi2cdf(lambda_log, 20, 'upper');
@@ -155,3 +151,10 @@ refline(1,0);
 title("QQ plot");
 ylabel("Standardize Log Returns Quantiles");
 xlabel("Normal Quantiles");
+saveas(gcf,'plots/qqplot.png');
+
+% Second part, repeat problem 2 but for |Z|
+log_abs_returns = abs(log(x_t_1) - log(x_t));
+log_abs_returns = log_abs_returns - mean(log_abs_returns);
+[lambda_log_abs, ~] = ljungbox(log_abs_returns, 20);
+log_abs_pval = chi2cdf(lambda_log_abs, 20, 'upper');
