@@ -1,5 +1,6 @@
 function [gm, gamma_mat, acf] = acvf(data, h)
     % gamma_mat is sample covariance matrix
+    % gm is the gamma values
     gm = zeros(1,h+1);
     n = length(data);
     mx = mean(data);

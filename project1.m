@@ -2,6 +2,11 @@ data = importdata('exchangerate.mat');
 n_data = length(data);
 
 % Problem 1
+% mean correct all three series, i.e., subtract the sample mean from each series.
+% Plot them. Which, if any, of them do you think can be modeled as a stationary time
+% series? Motivate your answer. After this, you may assume that all three time series
+% have mean zero.
+
 x_t = data(1:end - 1);
 x_t_1 = data(2:end);
 
@@ -15,15 +20,26 @@ corrected_log_returns = log_returns - mean(log_returns);
 corrected_data = data - mean(data);
 
 figure;
-subplot(2,2,1);
+% subplot(2,2,1);
 plot(corrected_data);
-title("Exchange data");
-subplot(2,2,2);
+ylabel("Australian Trade Weighted Index");
+xlabel("Months after Jan 1978");
+title("Monthly observations of the Australian Trade Weighted Index");
+saveas(gcf,'plots/exchangedata.png');
+figure;
+% subplot(2,2,2);
 plot(corrected_abs_returns);
+xlabel("Months after Jan 1978");
+ylabel("Absolute returns");
 title("Absolute returns");
-subplot(2,2,3);
+saveas(gcf,'plots/abs_returns.png');
+figure;
+% subplot(2,2,3);
 plot(corrected_log_returns);
+xlabel("Months after Jan 1978");
+ylabel("Log returns");
 title("Log Returns");
+saveas(gcf,'plots/log_returns.png');
 
 % Problem 2
 crit_val = chi2inv(0.95, 20);
@@ -32,35 +48,47 @@ crit_val = chi2inv(0.95, 20);
 [lambda_log, acf_log] = ljungbox(corrected_log_returns, 20);
 
 % Hypothesis test
-lambda_data > crit_val;
-lambda_abs > crit_val;
-lambda_log > crit_val;
+chi2cdf(lambda_data, 20, 'upper');
+chi2cdf(lambda_abs, 20, 'upper');
+chi2cdf(lambda_log, 20, 'upper');
 
 % IID should be 0 covariance
 figure;
 subplot(2,2,1);
 stem(acf_data, 'filled');
-% Draw +- 1.96 / sqrt(n) lines
-%line( [1 n_data], [(1.96 / sqrt(n_data)) (1.96 / sqrt(n_data))], '--', '1.96/sqrt(n)');
+Draw +- 1.96 / sqrt(n) lines
 yline(-1.96 / sqrt(n_data), '--', '-1.96/sqrt(n)');
+yline(1.96 / sqrt(n_data), '--');
+yline(-1.96 / sqrt(n_data), '--');
 title("ACF for original data");
+ylabel("Correlation");
+xlabel("h");
 axis([1 20 -1 1]);
+saveas(gcf,'plots/acf_exchange.png');
 
-subplot(2,2,2);
+figure;
+%subplot(2,2,2);
 stem(acf_abs, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
-yline(1.96 / sqrt(n_returns), '--', '1.96/sqrt(n)');
-yline(-1.96 / sqrt(n_returns), '--', '-1.96/sqrt(n)');
+yline(1.96 / sqrt(n_returns), '--');
+yline(-1.96 / sqrt(n_returns), '--');
 title("ACF for absolute returns");
+ylabel("Correlation");
+xlabel("h");
 axis([1 20 -1 1]);
+saveas(gcf,'plots/acf_abs_returns.png');
 
-subplot(2,2,3);
+%subplot(2,2,3);
+figure;
 stem(acf_log, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
-yline(1.96 / sqrt(n_returns), '--', '1.96/sqrt(n)');
-yline(-1.96 / sqrt(n_returns), '--', '-1.96/sqrt(n)');
+yline(1.96 / sqrt(n_returns), '--');
+yline(-1.96 / sqrt(n_returns), '--');
 title("ACF for log returns");
+ylabel("Correlation");
+xlabel("h");
 axis([1 20 -1 1]);
+saveas(gcf,'plots/acf_log_returns.png');
 
 % Problem 3
 training = corrected_log_returns(1:102);
@@ -73,29 +101,61 @@ coefs = train_gamma_mat \ flip(gm(2:end)');
 preds = zeros(n_returns, 1);
 preds(1:102) = training;
 for i = 103:n_returns
-    preds(i) = dot(preds(i-20:i-1), coefs);
+    preds(i) = preds(i-1:-1:i-20)' * coefs;    
 end
 
-figure;
+% Print out the coefficients nicely for latex
+coef_format = arrayfun(@(x) sprintf("%.3f", x), coefs);
+zs_format = arrayfun(@(x) sprintf("z_{n-%d}",x), 1:20);
+% {' + '}, 
+blp_format = strcat(coef_format', zs_format);
+% add plus between coefficients
+blp_format = strjoin(blp_format, ' + ');
 
-% TODO: Plot the predictions and the actual values.
-scatter(103:n_returns, preds(103:n_returns), 'black');
-scatter(103:n_returns, test, [], 'red');
+% Plot the predictions (red) and the actual values (black)
+figure;
+preds_plot = plot(103:n_returns, preds(103:n_returns), '-o');
+preds_plot.Color = "red";
+hold on;
+actual_plot = plot(103:n_returns, test, '-o');
+actual_plot.Color = "black";
+title("Log Returns Predictions and actual values");
+ylabel("Log Returns");
+legend("Predictions", "Actual");
+saveas(gcf,'plots/log_returns_preds.png');
+
+% Plot the residuals
+% figure;
+% stem(103:n_returns, preds(103:n_returns) - test, 'filled');
+% title("Predicted - Actual (Residuals)");
 
 % mean squared error
-mean(preds(103:n_returns) - test)
+forecast_mse = mean((preds(103:n_returns) - test).^2);
+mean_mse = mean(test.^2);
+
+% Not much difference in the forecasted MSE and the naive mean prediction
+% Since log returns look IID it makes sense that mean prediction is almost
+% as good
 
 % Problem 4
 % qqplot(corrected_log_returns);
+% Standardized log return (divided off standard deviation)
+log_returns_std = sort(corrected_log_returns / std(corrected_log_returns));
+% Generate samples from normal distribution
+norm_sample = sort(normrnd(0, 1, [1,n_returns]));
+
+% Plot QQ-plot
 figure;
-x = corrected_log_returns / std(corrected_log_returns);
-cdfplot(x)
+scatter(norm_sample, log_returns_std);
 hold on;
-x_values = linspace(min(x),max(x));
-plot(x_values,normcdf(x_values,0,1),'r-')
-legend('Empirical CDF','Standard Normal CDF','Location','best')
+refline(1,0);
+title("QQ plot");
+ylabel("Standardize Log Returns Quantiles");
+xlabel("Normal Quantiles");
+saveas(gcf,'plots/qqplot.png');
 
-% Histogram fit of normal
-histfit(x)
-
-
+% Second part, repeat problem 2 but for |Z|
+log_abs_returns = abs(log(x_t_1) - log(x_t));
+log_abs_returns = log_abs_returns - mean(log_abs_returns);
+[lambda_log_abs, ~] = ljungbox(log_abs_returns, 20);
+log_abs_pval = chi2cdf(lambda_log_abs, 20, 'upper');
