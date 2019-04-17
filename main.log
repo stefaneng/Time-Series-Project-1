@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.17)  14 APR 2019 13:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.17)  17 APR 2019 15:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -406,19 +406,27 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
 LaTeX Info: Redefining \[ on input line 2739.
 LaTeX Info: Redefining \] on input line 2740.
 )
+(/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count99
+\float@exts=\toks22
+\float@box=\box28
+\@float@everytoks=\toks23
+\@floatcapt=\box29
+)
 (/usr/local/texlive/2016/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip46
 \bibsep=\skip47
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count99
+\c@NAT@ctr=\count100
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks22
+\KV@toks@=\toks24
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2016/05/09 v1.0r Standard LaTeX Graphics (DPC,SPQR)
@@ -440,7 +448,7 @@ Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count100
+\Gread@gobject=\count101
 ))
 \Gin@req@height=\dimen112
 \Gin@req@width=\dimen113
@@ -448,32 +456,32 @@ Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 
 (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count101
+\scratchcounter=\count102
 \scratchdimen=\dimen114
-\scratchbox=\box28
-\nofMPsegments=\count102
-\nofMParguments=\count103
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count104
+\scratchbox=\box30
+\nofMPsegments=\count103
+\nofMParguments=\count104
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count105
 \MPscratchDim=\dimen115
-\MPnumerator=\count105
-\makeMPintoPDFobject=\count106
-\everyMPtoPDFconversion=\toks24
+\MPnumerator=\count106
+\makeMPintoPDFobject=\count107
+\everyMPtoPDFconversion=\toks26
 ) (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2016/05/10 v0.21 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -521,41 +529,106 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 16.
+LaTeX Font Info:    Try loading font information for U+msa on input line 17.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 16.
+LaTeX Font Info:    Try loading font information for U+msb on input line 17.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./main.bbl)
-[1
+)
+<plots/exchangedata.png, id=1, 562.2606pt x 421.575pt>
+File: plots/exchangedata.png Graphic file (type png)
 
-{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./main.aux) ) 
+<use plots/exchangedata.png>
+Package pdftex.def Info: plots/exchangedata.png used on input line 22.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+
+<plots/abs_returns.png, id=2, 562.2606pt x 421.575pt>
+File: plots/abs_returns.png Graphic file (type png)
+
+<use plots/abs_returns.png>
+Package pdftex.def Info: plots/abs_returns.png used on input line 34.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+ [1
+
+{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./plots
+/exchangedata.png (PNG copy)>]
+<plots/log_returns.png, id=15, 562.2606pt x 421.575pt>
+File: plots/log_returns.png Graphic file (type png)
+
+<use plots/log_returns.png>
+Package pdftex.def Info: plots/log_returns.png used on input line 41.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+ [2 <./plots/abs_returns.png (PNG copy)> <./plots/log_returns.png (PNG copy)>]
+<plots/acf_exchange.png, id=20, 562.2606pt x 421.575pt>
+File: plots/acf_exchange.png Graphic file (type png)
+
+<use plots/acf_exchange.png>
+Package pdftex.def Info: plots/acf_exchange.png used on input line 77.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+ [3]
+<plots/acf_abs_returns.png, id=26, 562.2606pt x 421.575pt>
+File: plots/acf_abs_returns.png Graphic file (type png)
+
+<use plots/acf_abs_returns.png>
+Package pdftex.def Info: plots/acf_abs_returns.png used on input line 84.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+
+<plots/acf_log_returns.png, id=27, 562.2606pt x 421.575pt>
+File: plots/acf_log_returns.png Graphic file (type png)
+
+<use plots/acf_log_returns.png>
+Package pdftex.def Info: plots/acf_log_returns.png used on input line 91.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+ [4 <./plots/acf_exchange.png (PNG copy)> <./plots/acf_abs_returns.png (PNG cop
+y)>]
+Overfull \hbox (7.75656pt too wide) in paragraph at lines 125--125
+[] 
+ []
+
+[5 <./plots/acf_log_returns.png (PNG copy)>]
+<plots/log_returns_preds.png, id=34, 562.2606pt x 421.575pt>
+File: plots/log_returns_preds.png Graphic file (type png)
+
+<use plots/log_returns_preds.png>
+Package pdftex.def Info: plots/log_returns_preds.png used on input line 131.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+ [6 <./plots/log_returns_preds.png (PNG copy)>] <plots/qqplot.png, id=38, 562.2
+606pt x 421.575pt>
+File: plots/qqplot.png Graphic file (type png)
+ <use plots/qqplot.png>
+Package pdftex.def Info: plots/qqplot.png used on input line 157.
+(pdftex.def)             Requested size: 284.52756pt x 213.33432pt.
+
+[7 <./plots/qqplot.png (PNG copy)>] (./main.bbl) [8] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 3020 strings out of 493014
- 37966 string characters out of 6133351
- 100587 words of memory out of 5000000
- 6514 multiletter control sequences out of 15000+600000
+ 3129 strings out of 493014
+ 39880 string characters out of 6133351
+ 105049 words of memory out of 5000000
+ 6609 multiletter control sequences out of 15000+600000
  11541 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,10n,26p,230b,199s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-2.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.
-pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pf
-b>
-Output written on main.pdf (1 page, 84853 bytes).
+ 37i,10n,26p,278b,223s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/
+texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texli
+ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive
+/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2
+016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/201
+6/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf
+-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (8 pages, 480815 bytes).
 PDF statistics:
- 40 PDF objects out of 1000 (max. 8388607)
- 28 compressed objects within 1 object stream
+ 87 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

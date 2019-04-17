@@ -175,8 +175,23 @@ The p-value is $1.66 \times 10^{-8}$.
     E[X_t] &= E[\cos(\omega t + Y)]\\
     &= E[\cos(\omega t) \cos(Y) - sin(\omega t) sin(Y)] && \text{Sum-difference for cos}\\
     &= \cos(\omega t) E[\cos(Y)] - sin(\omega t) E[sin(Y)]\\
-    &= \text{TODO: Find dist. of cos(Y) and sin(Y)}
+    &= \cos(\omega t) \cdot 0 - sin(\omega t) \cdot 0 = 0
 \end{align*}
+
+Additional Calculation:
+$ Y \sim \mathcal{U}[-\pi, \pi] $
+
+
+\begin{align*}
+E[\cos(Y)] = \int_{-\infty}^{\infty} \cos(x) \mathbb{I}_{[-\pi, \pi]} dx = \int_{-\pi}^{\pi} cos(x) dx = [sin(x)]^{\pi}_{-\pi} = 0 + 0 = 0
+\end{align*}
+
+\begin{align*}
+E[\sin(Y)] &= \int_{-\infty}^{\infty} \sin(x) \mathbb{I}_{[-\pi, \pi]} dx = \int_{-\pi}^{\pi} sin(x) dx\\ 
+& = [-cos(x)]^{\pi}_{-\pi} = -\cos(\pi) - (- cos(-\pi)) \\
+& = -(-1) - ( - (-1)) = 1 - 1 = 0
+\end{align*}
+
 
 \bibliographystyle{plain}
 \bibliography{references}

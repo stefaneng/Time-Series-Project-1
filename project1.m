@@ -56,8 +56,10 @@ chi2cdf(lambda_log, 20, 'upper');
 figure;
 subplot(2,2,1);
 stem(acf_data, 'filled');
-Draw +- 1.96 / sqrt(n) lines
+%Draw +- 1.96 / sqrt(n) lines
+
 yline(-1.96 / sqrt(n_data), '--', '-1.96/sqrt(n)');
+
 yline(1.96 / sqrt(n_data), '--');
 yline(-1.96 / sqrt(n_data), '--');
 title("ACF for original data");
@@ -153,6 +155,26 @@ title("QQ plot");
 ylabel("Standardize Log Returns Quantiles");
 xlabel("Normal Quantiles");
 saveas(gcf,'plots/qqplot.png');
+
+% Test of Normality by Shapiro–Wilk test:
+% H0:   Composite normality is a reasonable assumption regarding the
+%       population distribution of a random sample X
+%
+% Returning 'H = 0' implies that we 'Do not reject the null 
+% hypothesis at the significance level of alpha' and 'H = 1' implies 
+% that we 'Reject the null hypothesis at significance level of alpha
+% (alpha by default 0.05)
+[H, p, W] = swtest(corrected_log_returns);
+
+
+% Test of Normality by Kolmogorov Smirnov Test:
+% h = kstest(x) returns a test decision for the null hypothesis that the
+% data in vector x comes from a standard normal distribution, against 
+% the alternative that it does not come from such a distribution, using
+% the one-sample Kolmogorov-Smirnov test. The result h is 1 if the test
+% rejects the null hypothesis at the 5 significance level, or 0 otherwise.
+h = kstest(corrected_log_returns)
+
 
 % Second part, repeat problem 2 but for |Z|
 log_abs_returns = abs(log(x_t_1) - log(x_t));
