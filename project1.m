@@ -41,7 +41,7 @@ figure;
 subplot(2,2,1);
 stem(acf_data, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
-yline(1.96 / sqrt(n_data), '--', '1.96/sqrt(n)');
+%line( [1 n_data], [(1.96 / sqrt(n_data)) (1.96 / sqrt(n_data))], '--', '1.96/sqrt(n)');
 yline(-1.96 / sqrt(n_data), '--', '-1.96/sqrt(n)');
 title("ACF for original data");
 axis([1 20 -1 1]);
