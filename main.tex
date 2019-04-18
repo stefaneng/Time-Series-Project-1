@@ -157,6 +157,7 @@ We can see this behavior in Figure \ref{fig:log_preds} by noticiing that the pre
 We created a QQ-plot, Figure \ref{fig:qqplot} for the log returns to check if the data was consistent with a normal distribution.
 We sampled points from the standard normal distribution and compared against the order statistics for the normalized log returns.
 We can see that the distribution of log returns does not look normal.
+We confirmed this result by using Matlab's \texttt{kstest} which rejected the null hypothesis that the normalized log returns come from a standard normal distribution.
 
 \begin{figure}[H]
 \includegraphics[width=10cm]{plots/qqplot.png}

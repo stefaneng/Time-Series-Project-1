@@ -162,7 +162,7 @@ saveas(gcf,'plots/qqplot.png');
 % the alternative that it does not come from such a distribution, using
 % the one-sample Kolmogorov-Smirnov test. The result h is 1 if the test
 % rejects the null hypothesis at the 5 significance level, or 0 otherwise.
-h = kstest(corrected_log_returns)
+[h,p] = kstest(corrected_log_returns);
 
 
 % Second part, repeat problem 2 but for |Z|
