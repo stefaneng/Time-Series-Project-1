@@ -171,25 +171,76 @@ The p-value is $1.66 \times 10^{-8}$.
 \section*{Problem 5}
 \subsection*{Part a}
 % Show expected value the same
+\begin{align}
+    E[X_t] &= E[\cos(\omega t + Y)] \nonumber\\
+    &= E[\cos(\omega t) \cos(Y) - sin(\omega t) sin(Y)]  \label{ref1}\\
+    &= \cos(\omega t) E[\cos(Y)] - sin(\omega t) E[sin(Y)] \nonumber\\
+    &= \cos(\omega t) \cdot 0 - sin(\omega t) \cdot 0 = 0  \label{ref2}
+\end{align}
+
+\noindent \eqref{ref1} Trignonometric identity \\
+\\
+\eqref{ref2} 
 \begin{align*}
-    E[X_t] &= E[\cos(\omega t + Y)]\\
-    &= E[\cos(\omega t) \cos(Y) - sin(\omega t) sin(Y)] && \text{Sum-difference for cos}\\
-    &= \cos(\omega t) E[\cos(Y)] - sin(\omega t) E[sin(Y)]\\
-    &= \cos(\omega t) \cdot 0 - sin(\omega t) \cdot 0 = 0
-\end{align*}
-
-Additional Calculation:
-$ Y \sim \mathcal{U}[-\pi, \pi] $
-
-
-\begin{align*}
-E[\cos(Y)] = \int_{-\infty}^{\infty} \cos(x) \mathbb{I}_{[-\pi, \pi]} dx = \int_{-\pi}^{\pi} cos(x) dx = [sin(x)]^{\pi}_{-\pi} = 0 + 0 = 0
+E[\cos(Y)] &= \int_{-\infty}^{\infty} \cos(x) \mathbb{I}_{[-\pi, \pi]} dx \\
+&= \int_{-\pi}^{\pi} cos(x) dx = [sin(x)]^{\pi}_{-\pi} = 0 + 0 = 0
 \end{align*}
 
 \begin{align*}
 E[\sin(Y)] &= \int_{-\infty}^{\infty} \sin(x) \mathbb{I}_{[-\pi, \pi]} dx = \int_{-\pi}^{\pi} sin(x) dx\\ 
 & = [-cos(x)]^{\pi}_{-\pi} = -\cos(\pi) - (- cos(-\pi)) \\
 & = -(-1) - ( - (-1)) = 1 - 1 = 0
+\end{align*}
+
+\begin{align*}
+\gamma_X(r,s) &= Cov(X_r, X_s) = E[cos(wr + Y)cos(ws + Y)] \\
+ &= E[(\cos(wr)\cos(Y) - \sin(wr)\sin(Y))(\cos(ws)\cos(Y) - \sin(ws)\sin(Y)] \\
+ &= E[\cos^2(Y)\cos(wr)\cos(ws) + \cos(wr)\cos(Y)\sin(wr)\sin(Y) - \sin(wr)\sin(Y)\cos(ws)\cos(Y) \\
+ & + \sin^2(Y)sin(wr)sin(ws) ] \\
+ & = E[\cos^2(Y)]\cos(wr)\cos(ws) + E[\cos(Y)\sin(Y)](\cos(wr)\sin(wr) - \sin(ws)\cos(ws)) \\
+ & + E[\sin^2(Y)sin(wr)sin(ws)] \\
+ & \underbrace{=}_{Additional \ calculation}  \pi (\cos(wr)\cos(ws) -\sin(wr)\sin(ws)) \\
+ & \underbrace{=}_{trig. identity} \pi \cos(w(r-s)) \\
+ & = \pi \cos(w((r + h) - (s + h)) \\
+ & = \gamma_{X}(r+h, s+h)
+ \end{align*}
+
+This shows the process to be stationary.\\
+\\
+\\
+\\
+We can derive from the calculation of $Cov$ that for the Autocovariance holds the following:\\
+$\gamma_X(h) = \pi \cos(wh)$
+\\
+\\
+Additional Calculation:\\
+In the first part we show $E[\cos^2(Y)] = \pi$ and $E[\sin^2(Y)] = \pi$. In the second part we show
+$E[\sin(Y)\cos(Y)] = 0$
+
+ 
+1) $ Y \sim \mathcal{U}[-\pi, \pi] $\\
+\begin{align*}
+ \int \cos^2(y) dy = & \int \cos(y)\cos(y) = \\
+& \underbrace{=}_{Int. \ by \ parts} \sin(y)\cos(y) - \int -\sin(y)\sin(y) \\
+& = \cos(y)\sin(y) + \int 1 - \cos^2(y) \\
+& = \cos(y)\sin(y) + y + \int \cos^2(y) dy \\
+&\Rightarrow 2\int \cos^2(y) dy = \cos(y)\sin(y) + y \\
+&\Rightarrow \int \cos^2(y)dy = \frac 1 2 (\cos(y)\sin(y) + y) \\
+\end{align*}
+\begin{align*}
+ \Rightarrow E[\cos^2(Y)] = \int_{-\pi}^{\pi} \cos^2(y)dy = [\frac 1 2 (\cos(y)\sin(y) + y) ]^{\pi}_{-\pi} = \pi
+\end{align*}
+
+\begin{align*}
+E[\sin^2(Y)] = \dots = [\frac 1 2 (-\cos(y)\sin(y) + y) ]^{\pi}_{-\pi} = \pi
+\end{align*}
+2) $ Y \sim \mathcal{U}[-\pi, \pi] $
+\begin{align*}
+\int \sin(y)\cos(y)dy& \underbrace{=}_{u = \sin(y), \ du = cos(y)dy} \int u du \\
+&= \frac 1 2 u^2 + C = \sin^2(y) + C \\
+\end{align*}
+\begin{align*}
+\Rightarrow E[\sin(Y)\cos(Y)] = [\sin^2(y)]^{\pi}_{\pi} = 0 - 0 = 0
 \end{align*}
 
 
