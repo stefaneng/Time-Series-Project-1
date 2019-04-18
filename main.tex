@@ -4,6 +4,11 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{float}
+\usepackage[toc,page]{appendix}
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Cov}{Cov}
 
 \title{Time Series Project 1}
 \author{Stefan Eng and Franz Hartleitner}
@@ -170,6 +175,7 @@ The p-value is $1.66 \times 10^{-8}$.
 
 \section*{Problem 5}
 \subsection*{Part a}
+
 % Show expected value the same
 \begin{align}
     E[X_t] &= E[\cos(\omega t + Y)] \nonumber\\
@@ -180,61 +186,73 @@ The p-value is $1.66 \times 10^{-8}$.
 
 \noindent \eqref{ref1} Trignonometric identity \\
 \\
-\eqref{ref2} 
+\eqref{ref2}
 \begin{align*}
 E[\cos(Y)] &= \int_{-\infty}^{\infty} \cos(x) \mathbb{I}_{[-\pi, \pi]} dx \\
 &= \int_{-\pi}^{\pi} cos(x) dx = [sin(x)]^{\pi}_{-\pi} = 0 + 0 = 0
 \end{align*}
 
 \begin{align*}
-E[\sin(Y)] &= \int_{-\infty}^{\infty} \sin(x) \mathbb{I}_{[-\pi, \pi]} dx = \int_{-\pi}^{\pi} sin(x) dx\\ 
+E[\sin(Y)] &= \int_{-\infty}^{\infty} \sin(x) \mathbb{I}_{[-\pi, \pi]} dx = \int_{-\pi}^{\pi} sin(x) dx\\
 & = [-cos(x)]^{\pi}_{-\pi} = -\cos(\pi) - (- cos(-\pi)) \\
 & = -(-1) - ( - (-1)) = 1 - 1 = 0
 \end{align*}
 
+
+We can also see that $\Var(cos(wt + Y)) < +\infty$
 \begin{align*}
-\gamma_X(r,s) &= Cov(X_r, X_s) = E[cos(wr + Y)cos(ws + Y)] \\
- &= E[(\cos(wr)\cos(Y) - \sin(wr)\sin(Y))(\cos(ws)\cos(Y) - \sin(ws)\sin(Y)] \\
- &= E[\cos^2(Y)\cos(wr)\cos(ws) + \cos(wr)\cos(Y)\sin(wr)\sin(Y) - \sin(wr)\sin(Y)\cos(ws)\cos(Y) \\
- & + \sin^2(Y)sin(wr)sin(ws) ] \\
- & = E[\cos^2(Y)]\cos(wr)\cos(ws) + E[\cos(Y)\sin(Y)](\cos(wr)\sin(wr) - \sin(ws)\cos(ws)) \\
- & + E[\sin^2(Y)sin(wr)sin(ws)] \\
- & \underbrace{=}_{Additional \ calculation}  \pi (\cos(wr)\cos(ws) -\sin(wr)\sin(ws)) \\
- & \underbrace{=}_{trig. identity} \pi \cos(w(r-s)) \\
- & = \pi \cos(w((r + h) - (s + h)) \\
- & = \gamma_{X}(r+h, s+h)
+\Var(cos(wt + Y)) &= \Cov(cos(wt + Y), cos(wt + Y))\\
+&= E[cos^2(wt + Y)] - \underbrace{E[cos(wt + Y)]^2}_{0}\\
+&= E[\frac{1 + \cos(2(wt + Y))}{2}] < \infty
+\end{align*}
+
+\begin{align*}
+\gamma_X(t,t + h) &= Cov(X_{t}, X_{t + h}) = E[cos(wt + Y)cos(w(t+h) + Y)] \\
+ &= E[(\cos(wt)\cos(Y) - \sin(wt)\sin(Y))(\cos(wt + wh))\cos(Y) - \sin(wt + wh))\sin(Y)] \\
+ &= E[\cos^2(Y)\cos(wt)\cos(wt + wh) + \sin^2(Y)sin(wt)sin(wt + wh)\\
+ & \quad + \cos(wt)\sin(wt + wh)\sin(Y)\cos(Y) - \sin(wt)\cos(wt + wh)\sin(Y)\cos(Y)]\\
+ & = \underbrace{E[\cos^2(Y)]}_{\pi \text{ by Appendix \ref{appendix:cos2y}}} \cos(wt)\cos(wt + wh) + \underbrace{E[\sin^2(Y)]}_{\pi \text{ by Appendix \ref{appendix:cos2y}}} sin(wt)sin(wt + wh) +\\
+ & \quad \underbrace{E[sin(Y)cos(Y)]}_{\text{0 by Appendix \ref{appendix:sinycosy}}} [\cos(wt)\sin(wt + wh) - \sin(wt)\cos(wt + wh)]\\
+ &= \pi [\cos(wt)\cos(wt + wh) + sin(wt)sin(wt + wh)]\\
+ &= \pi [
+ \cos(wt)[\cos(wt) \cos(wh) - \sin(wt) \sin(wh)] +\\
+ &\qquad sin(wt)[sin(wt) cos(wh) + sin(wh) cos(wt)]]\\
+ &= \pi [
+  cos^2(wt) cos(wh) + sin^2(wt) cos(wh) +\\
+  &\qquad sin(wh)cos(wt)sin(wt) - sin(wh)cos(wt)sin(wt)
+ ]\\
+ &= \pi cos(wh) [cos^2(wt) + sin^2(wt)]\\
+ &= \pi \cos(wh)
  \end{align*}
 
-This shows the process to be stationary.\\
-\\
-\\
-\\
-We can derive from the calculation of $Cov$ that for the Autocovariance holds the following:\\
-$\gamma_X(h) = \pi \cos(wh)$
-\\
-\\
-Additional Calculation:\\
-In the first part we show $E[\cos^2(Y)] = \pi$ and $E[\sin^2(Y)] = \pi$. In the second part we show
-$E[\sin(Y)\cos(Y)] = 0$
+ Since $\gamma_X(t,t + h)$ does not depend on $h$, this completes the proof that the process to be stationary.
 
- 
+It follows that the autocovariance function for $X_t$ is $\gamma_X(h) = \pi \cos(wh)$.
+
+\begin{appendices}
+
+\section{Additional Calculation}
+
+\subsection{$E[\cos^2(Y)] = \pi$ and $E[\sin^2(Y)] = \pi$}
+\label{appendix:cos2y}
+
 1) $ Y \sim \mathcal{U}[-\pi, \pi] $\\
 \begin{align*}
- \int \cos^2(y) dy = & \int \cos(y)\cos(y) = \\
-& \underbrace{=}_{Int. \ by \ parts} \sin(y)\cos(y) - \int -\sin(y)\sin(y) \\
-& = \cos(y)\sin(y) + \int 1 - \cos^2(y) \\
-& = \cos(y)\sin(y) + y + \int \cos^2(y) dy \\
-&\Rightarrow 2\int \cos^2(y) dy = \cos(y)\sin(y) + y \\
-&\Rightarrow \int \cos^2(y)dy = \frac 1 2 (\cos(y)\sin(y) + y) \\
-\end{align*}
-\begin{align*}
- \Rightarrow E[\cos^2(Y)] = \int_{-\pi}^{\pi} \cos^2(y)dy = [\frac 1 2 (\cos(y)\sin(y) + y) ]^{\pi}_{-\pi} = \pi
+E[\cos^2(Y)] &= \int_{\pi}^\pi \cos^2(y) dy\\
+&= \int_{\pi}^\pi \frac{1 + \cos(2y)}{2} dy &&\text{half angle formula}\\
+&= \frac{1}{2} y + \frac{1}{4} sin(2y) \Big|_{-\pi}^\pi\\
+&= \frac{1}{2} \pi - (- \frac{1}{2} \pi) = \pi
 \end{align*}
 
 \begin{align*}
-E[\sin^2(Y)] = \dots = [\frac 1 2 (-\cos(y)\sin(y) + y) ]^{\pi}_{-\pi} = \pi
+E[\sin^2(Y)] &= \int_{\pi}^\pi \cos^2(y) dy\\
+&= \int_{\pi}^\pi \frac{1 - \cos(2y)}{2} dy &&\text{half angle formula}\\
+&= \frac{1}{2} y - \frac{1}{4} sin(2y) \Big|_{-\pi}^\pi\\
+&= \pi
 \end{align*}
 2) $ Y \sim \mathcal{U}[-\pi, \pi] $
+
+\subsection{$E[\sin(Y)\cos(Y)] = 0$} \label{appendix:sinycosy}
 \begin{align*}
 \int \sin(y)\cos(y)dy& \underbrace{=}_{u = \sin(y), \ du = cos(y)dy} \int u du \\
 &= \frac 1 2 u^2 + C = \sin^2(y) + C \\
@@ -243,6 +261,7 @@ E[\sin^2(Y)] = \dots = [\frac 1 2 (-\cos(y)\sin(y) + y) ]^{\pi}_{-\pi} = \pi
 \Rightarrow E[\sin(Y)\cos(Y)] = [\sin^2(y)]^{\pi}_{\pi} = 0 - 0 = 0
 \end{align*}
 
+\end{appendices}
 
 \bibliographystyle{plain}
 \bibliography{references}

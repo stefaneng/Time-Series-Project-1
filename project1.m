@@ -54,7 +54,7 @@ chi2cdf(lambda_log, 20, 'upper');
 
 % IID should be 0 covariance
 figure;
-subplot(2,2,1);
+%subplot(2,2,1);
 stem(acf_data, 'filled');
 %Draw +- 1.96 / sqrt(n) lines
 
@@ -155,17 +155,6 @@ title("QQ plot");
 ylabel("Standardize Log Returns Quantiles");
 xlabel("Normal Quantiles");
 saveas(gcf,'plots/qqplot.png');
-
-% Test of Normality by Shapiro–Wilk test:
-% H0:   Composite normality is a reasonable assumption regarding the
-%       population distribution of a random sample X
-%
-% Returning 'H = 0' implies that we 'Do not reject the null 
-% hypothesis at the significance level of alpha' and 'H = 1' implies 
-% that we 'Reject the null hypothesis at significance level of alpha
-% (alpha by default 0.05)
-[H, p, W] = swtest(corrected_log_returns);
-
 
 % Test of Normality by Kolmogorov Smirnov Test:
 % h = kstest(x) returns a test decision for the null hypothesis that the
