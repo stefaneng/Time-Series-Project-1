@@ -284,31 +284,21 @@ $$
 The mean squared error is
 \begin{align*}
   E[(X_{n + 1} - b_{n+1}^l(X_{n - 1}, X_n))^2] &= E[(X_{n + 1} - 2 X_n \cos(\omega) + X_{n - 1})^2]\\
-  &= E[(\cos(\omega (t + 1) + Y) - 2\cos(\omega t + Y)\cos(\omega ) + \cos(\omega (t - 1) + Y))^2]\\
-  &= E[(
-  \cos(\omega (t + 1)) \cos(Y) - \sin(\omega (t + 1)) \sin(Y)\\
-  &\qquad - 2\cos(\omega )\cos(\omega t) \cos(Y) + 2\cos(\omega ) \sin(\omega t) \sin(Y)\\
-  &\qquad + \cos(\omega (t - 1)) \cos(Y) - \sin(\omega (t - 1)) \sin(Y)
-  )^2]
+  &= E[(X_{n + 1})^2 - 2 X_n X_{n + 1} \cos(\omega) + X_{n - 1}X_{n + 1}\\
+  & \qquad -2X_n X_{n + 1} \cos(\omega) + 4 X_n^2 \cos^2(\omega)\\
+  & \qquad - 2 X_{n - 1}X_n \cos(\omega) + X_{n - 1} X_{n + 1}\\
+  & \qquad - 2 X_{n -1} X_n \cos(\omega) + X^2_{n - 1}
+  ]\\
+  &= E[X_{n + 1})^2] - 4 E[X_n X_{n + 1}] \cos(\omega) + 2 E[X_{n - 1}X_{n + 1}]\\
+  & \qquad - 4 E[X_{n - 1} X_n] \cos(\omega) + 4 E[X_n^2] \cos^2(\omega) + E[X_{n - 1}^2]\\
+  &= \pi - 4 \gamma(1) \cos(\omega) + 2 \gamma(2)\\
+  & \qquad - 4 \gamma(1) \cos(\omega) + 4 \pi \cos^2(\omega) + \pi\\
+  &= 2\pi - 8 \pi \cos^2(\omega) + 4 \pi \cos^2(\omega) + 2 \pi \cos(2\omega)\\
+  &= 2\pi - 4 \pi \cos^2(\omega) + 2 \pi (\cos^2(\omega) - 1)\\
+  & \qquad \text{(Double Angle Formula)}\\
+  &= 0
 \end{align*}
 
-We have that
-\begin{align*}
-\cos(\omega (t + 1)) &= \cos(\omega t) \cos(\omega ) - \sin(\omega t)\sin(\omega )\\
-\cos(\omega (t - 1)) &= \cos(\omega t) \cos(\omega ) + \sin(\omega t)\sin(\omega )\\
-\cos(\omega (t + 1)) + \cos(\omega (t - 1)) &= 2 \cos(\omega t) \cos(\omega )
-\end{align*}
-and similarly $\sin(\omega (t + 1)) + \sin(\omega (t - 1)) = 2\sin(\omega t) \cos(\omega )$
-Thus,
-\begin{align*}
-E[(X_{n + 1} - b_{n+1}^l(X_{n - 1}, X_n))^2] &= E[
-(
-  \cos(Y)(\underbrace{\cos(\omega (t + 1)) + \cos(\omega (t - 1)) - 2 \cos(\omega t) \cos(\omega )}_0) +\\
-  &\qquad \sin(Y)(\underbrace{2\sin(\omega t) \cos(\omega ) - \sin(\omega (t + 1)) - \sin(\omega (t - 1)}_0)
-)^2
-]\\
-&= 0
-\end{align*}
 
 \begin{appendices}
 
