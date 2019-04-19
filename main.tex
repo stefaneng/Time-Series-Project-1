@@ -5,6 +5,11 @@
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage[toc,page]{appendix}
+\usepackage{geometry}
+\geometry{
+a4paper,
+top=1in
+}
 
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Corr}{Corr}
@@ -185,7 +190,7 @@ The p-value is $1.66 \times 10^{-8}$.
     &= \cos(\omega t) \cdot 0 - \sin(\omega t) \cdot 0 = 0  \label{ref2}
 \end{align}
 
-\noindent \eqref{ref1} Trignonometric identity \\
+\noindent \eqref{ref1} Sum-Difference Formula \\
 \\
 \eqref{ref2}
 \begin{align*}
@@ -274,7 +279,7 @@ a_2 &= \frac{\cos(2w) - \cos^2(\omega )}{1 - \cos^2(\omega )} \nonumber\\
 \end{align}
 
 Line \eqref{eq:5b3} follows because $\cos(2w) = 2 \cos^2(\omega ) - 1$.
-It then follows that $a_2 = 2\cos(\omega )$.
+It then follows that $a_1 = 2\cos(\omega )$.
 Thus,
 $$
 b_{n+1}^l(X_{n - 1}, X_n) = 2 X_n \cos(\omega) - X_{n - 1}
