@@ -2,14 +2,10 @@ data = importdata('exchangerate.mat');
 n_data = length(data);
 
 % Problem 1
-% mean correct all three series, i.e., subtract the sample mean from each series.
-% Plot them. Which, if any, of them do you think can be modeled as a stationary time
-% series? Motivate your answer. After this, you may assume that all three time series
-% have mean zero.
-
 x_t = data(1:end - 1);
 x_t_1 = data(2:end);
 
+% Compute absolute and log returns
 abs_returns = x_t_1 - x_t;
 log_returns = log(x_t_1) - log(x_t);
 
@@ -19,22 +15,24 @@ corrected_abs_returns = abs_returns - mean(abs_returns);
 corrected_log_returns = log_returns - mean(log_returns);
 corrected_data = data - mean(data);
 
+% Plot exchange rate data
 figure;
-% subplot(2,2,1);
 plot(corrected_data);
 ylabel("Australian Trade Weighted Index");
 xlabel("Months after Jan 1978");
 title("Monthly observations of the Australian Trade Weighted Index");
 saveas(gcf,'plots/exchangedata.png');
 figure;
-% subplot(2,2,2);
+
+% Plot absolute returns
 plot(corrected_abs_returns);
 xlabel("Months after Jan 1978");
 ylabel("Absolute returns");
 title("Absolute returns");
 saveas(gcf,'plots/abs_returns.png');
 figure;
-% subplot(2,2,3);
+
+% Plot log returns
 plot(corrected_log_returns);
 xlabel("Months after Jan 1978");
 ylabel("Log returns");
@@ -54,22 +52,18 @@ chi2cdf(lambda_log, 20, 'upper');
 
 % IID should be 0 covariance
 figure;
-%subplot(2,2,1);
 stem(acf_data, 'filled');
-%Draw +- 1.96 / sqrt(n) lines
-
+% Draw +- 1.96 / sqrt(n) lines
 yline(-1.96 / sqrt(n_data), '--', '-1.96/sqrt(n)');
-
 yline(1.96 / sqrt(n_data), '--');
-yline(-1.96 / sqrt(n_data), '--');
 title("ACF for original data");
 ylabel("Correlation");
 xlabel("h");
 axis([1 20 -1 1]);
 saveas(gcf,'plots/acf_exchange.png');
 
+% ACF Abs returns plot
 figure;
-%subplot(2,2,2);
 stem(acf_abs, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
 yline(1.96 / sqrt(n_returns), '--');
@@ -80,7 +74,7 @@ xlabel("h");
 axis([1 20 -1 1]);
 saveas(gcf,'plots/acf_abs_returns.png');
 
-%subplot(2,2,3);
+% ACF Log Returns
 figure;
 stem(acf_log, 'filled');
 % Draw +- 1.96 / sqrt(n) lines
@@ -97,19 +91,19 @@ training = corrected_log_returns(1:102);
 test = corrected_log_returns(103:end);
 [gm, train_gamma_mat, train_acf] = acvf(training, 20);
 
+% Compute coefficients and make predictions
 % First coefficient, a_0 is zero since mean is zero.
 coefs = train_gamma_mat \ flip(gm(2:end)');
 
 preds = zeros(n_returns, 1);
 preds(1:102) = training;
 for i = 103:n_returns
-    preds(i) = preds(i-1:-1:i-20)' * coefs;    
+    preds(i) = preds(i-1:-1:i-20)' * coefs;
 end
 
 % Print out the coefficients nicely for latex
 coef_format = arrayfun(@(x) sprintf("%.3f", x), coefs);
 zs_format = arrayfun(@(x) sprintf("z_{n-%d}",x), 1:20);
-% {' + '}, 
 blp_format = strcat(coef_format', zs_format);
 % add plus between coefficients
 blp_format = strjoin(blp_format, ' + ');
@@ -158,7 +152,7 @@ saveas(gcf,'plots/qqplot.png');
 
 % Test of Normality by Kolmogorov Smirnov Test:
 % h = kstest(x) returns a test decision for the null hypothesis that the
-% data in vector x comes from a standard normal distribution, against 
+% data in vector x comes from a standard normal distribution, against
 % the alternative that it does not come from such a distribution, using
 % the one-sample Kolmogorov-Smirnov test. The result h is 1 if the test
 % rejects the null hypothesis at the 5 significance level, or 0 otherwise.
